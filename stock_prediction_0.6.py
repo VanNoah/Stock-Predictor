@@ -202,10 +202,10 @@ def ensemble_arima_lstm(train_data, test_data, columns, p_values, d_values, q_va
     for column in columns:
         if column == "Close":
             selected_variable = train_data[:, columns.index(column)]
-            # best_order = find_best_arima_order(selected_variable, p_values, d_values, q_values)
-            # print(f"Best order is: {best_order}")
-            # arima_model = ARIMA(selected_variable, order=best_order)
-            arima_model = ARIMA(selected_variable, order=[1,0,1])
+            best_order = find_best_arima_order(selected_variable, p_values, d_values, q_values) #comment 3 lines to not run optimiser
+            print(f"Best order is: {best_order}") #comment 3 lines to not run optimiser
+            arima_model = ARIMA(selected_variable, order=best_order) #comment 3 lines to not run optimiser
+            # arima_model = ARIMA(selected_variable, order=[1,0,1]) # un comment line to not run optimiser
             arima_model_fit = arima_model.fit()
             arima_preds = arima_model_fit.forecast(steps=len(test_data))
             arima_predictions.append(list(arima_preds))
